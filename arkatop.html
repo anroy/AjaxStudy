@@ -1,7 +1,35 @@
+<!DOCTYPE html>
 <html>
-<title>Start Page</title>
-
+<head>
+    <title>Times Around the World</title>
+    <style type="text/css" media="all">@import "style.css";</style>
+</head>
 <body>
-This is the start page
+    <form>
+        City Name:<br>
+        <input type="text" name="cityName"><br>
+        <input type="button" value="Submit" onclick="callAPI()">
+    </form>
+    <br />
+    <div id="response"></div>
+
+    <script>
+    function callAPI() {
+        var url = "http://worldtimeapi.org/api/timezone/";
+        var elts = document.getElementsByName("cityName");
+        var cityName = elts[0].value;
+        url = url + cityName;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("response").innerHTML =
+                this.responseText;
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+
+    }
+    </script>
 </body>
 </html>
